@@ -1,7 +1,18 @@
+name: Checkmarx ONE Scan
+on:
+  push:
+    branches:
+      - main
+      - master
+    
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
       - name: Checkmarx AST CLI Action
         uses: checkmarx/ast-github-action@main #Github Action version
         with:
-          base_uri: https://ast.checkmarx.net/
-          cx_tenant: your_tenant
-          cx_client_id: ${{ secrets.CX_CLIENT_ID }}
-          cx_client_secret: ${{ secrets.CX_CLIENT_SECRET }}
+          base_uri: https://eu.ast.checkmarx.net/
+          cx_tenant: test_naftali
+          cx_client_id: GithubHarsh
+          cx_client_secret: UdRVsCscEJFd7UuomFWFXTWA8t9xb6aJ
