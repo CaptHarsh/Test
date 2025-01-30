@@ -28,7 +28,7 @@ jobs:
       pull-requests: write        
       security-events: write        
       actions: read      
-    runs-on: self-hosted     
+    runs-on: self-hosted  
     steps:        
       - uses: actions/checkout@v3  
       - name: debug environment 
