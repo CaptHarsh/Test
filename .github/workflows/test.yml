@@ -16,7 +16,7 @@ jobs:
       with:
         project: HARSHGITHUB # <-- Insert Checkmarx SAST Project Name
         team: /CxServer
-        checkmarx_url: https://cxprivatecloud.checkmarx.net/ # To be stored in GitHub Secrets.
+        checkmarx_url: http://harshm-lt/# To be stored in GitHub Secrets.
         checkmarx_username: HarshMore # To be stored in GitHub Secrets.
         checkmarx_password: Harsh1803@ # To be stored in GitHub Secrets.
         checkmarx_client_secret: 014DF517-39D1-4453-B7B3-9930C563627C # To be stored in GitHub Secrets.
