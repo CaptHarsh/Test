@@ -1,0 +1,52 @@
+# This is a basic workflow to create GitHub Issues using the Checkmarx CxFlow GitHub Action.  It runs on a push to the main branch.
+#
+# The following GitHub Secrets must be first defined:
+#   - CHECKMARX_URL
+#   - CHECKMARX_USER
+#   - CHECKMARX_PASSWORD
+#   - CHECKMARX_CLIENT_SECRET
+#   - GH_TOKEN
+#
+# Update the 'team' field to reflect the team name used in Checkmarx.
+#
+# For full documentation, including a list of all inputs, please refer to the README https://github.com/checkmarx-ts/checkmarx-cxflow-github-action
+
+name: CxFlow-GitHub-Issue-Push
+# Controls when the action will run. Triggers the workflow on push or pull request events but only for the master branch
+on:
+  push:
+    branches:
+    - main
+    - master
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel - this job is specifically configured to use the Checkmarx CxFlow Action
+jobs:    
+  Scan:      
+    permissions:        
+      contents: read        
+      issues: write        
+      pull-requests: write        
+      security-events: write        
+      actions: read      
+    runs-on: self-hosted     
+    steps:        
+      - uses: actions/checkout@v3  
+      - name: debug environment 
+        run: env
+      - name: Checkmarx CxFlow Action          
+        uses: checkmarx-ts/checkmarx-cxflow-github-action@v1.9          
+        env:            
+          CHECKMARX_CLIENT_ID: "resource_owner_sast_client"            
+          CHECKMARX_SCOPE: "access_control_api sast_api"
+        with:            
+          project: ${{ github.repository }}'            
+          team: 'CxServer/SP/APAC'
+          checkmarx_username: akash.singh@checkmarx.com
+          checkmarx_password: Santa@11feb
+          checkmarx_url: https://cxprivatecloud.checkmarx.net
+          checkmarx_client_secret: 014DF517-39D1-4453-B7B3-9930C563627C            
+          scanners: sast            
+          preset: ASA Premium                     
+          params: --checkmarx.version=9.6 --checkmarx.incremental=false --namespace=${{ github.repository_owner }} --repo-name=${{ github.event.repository.name }} --branch=${{ github.ref }} --cx-flow.filter-severity --cx-flow.filter-category --checkmarx.disable-clubbing=true --repo-url=${{ github.event.repository.url }} --scan-resubmit=true --checkmarx.cancelInpregressScan=true --logging.level.org.apache.http.client.protocol=ERROR --logging.level.com.checkmarx.*=DEBUG --logging.level.org.apache.http.wire=DEBUG
+
+    
